@@ -205,10 +205,12 @@ public class MenuPrincipal {
 
     private Mueble.Madera pedirMadera() {
         Mueble.Madera m = null;
+        boolean repetir;
         String opcion;
         Scanner sc = new Scanner(System.in);
 
-        do {
+        do{
+            try{
             System.out.println("Introduzca el tipo de Madera");
             int contador = 0;
             for (Mueble.Madera m2 : Mueble.Madera.values()) {
@@ -217,18 +219,17 @@ public class MenuPrincipal {
             }
 
             opcion = sc.nextLine();
+            m=Mueble.Madera.valueOf(opcion);
+            repetir = true;
+            }catch(IllegalArgumentException e){
+                System.out.println(e.getMessage());
+                repetir=false;
+            }
+           
+        }while(repetir==false);
+        
 
-        } while (!opcion.equals("1") && !opcion.equals("2") && !opcion.equals("3"));
-
-        if (opcion.equals("1")) {
-            m = Mueble.Madera.PINO;
-        }
-        if (opcion.equals("2")) {
-            m = Mueble.Madera.ROBLE;
-        }
-        if (opcion.equals("3")) {
-            m = Mueble.Madera.HAYA;
-        }
+        
         return m;
     }
 
